@@ -1,0 +1,252 @@
+﻿@using System.Data;
+@using api.Models;
+
+@{
+    Layout = null;
+    dal mydal = new dal();
+    mydal.ConControl(mydal.myConnection);
+    DataSet datam = mydal.CommandExecuteReader("select * from binanceapi  (nolock)", mydal.myConnection);
+}
+
+<div class="col-sm-12 col-md-3">
+    <div class="market-pairs">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span id="inputGroup-sizing-sm" class="input-group-text">
+                    <i class="icon ion-md-search"></i>
+                </span>
+            </div><input type="text" placeholder="Coin Ara"
+                         aria-describedby="inputGroup-sizing-sm" id="searchTags" class="form-control">
+        </div>
+        <ul id="myTab" role="tablist" class="nav nav-tabs">
+
+            <li role="presentation" class="nav-item">
+                <button id="tum-id" data-bs-toggle="tab" data-bs-target="#tum"
+                        type="button" role="tab" aria-controls="tum" aria-selected="false" class="nav-link active">
+                    Tüm
+                </button>
+            </li>
+            <li role="presentation" class="nav-item">
+                <button id="btc-id" data-bs-toggle="tab" data-bs-target="#btc"
+                        type="button" role="tab" aria-controls="btc" aria-selected="false" class="nav-link">
+                    BTC
+                </button>
+            </li>
+            <li role="presentation" class="nav-item">
+                <button id="eth-id" data-bs-toggle="tab" data-bs-target="#eth"
+                        type="button" role="tab" aria-controls="eth" aria-selected="false" class="nav-link">
+                    ETH
+                </button>
+            </li>
+            <li role="presentation" class="nav-item">
+                <button id="bnb-id" data-bs-toggle="tab" data-bs-target="#bnb"
+                        type="button" role="tab" aria-controls="bnb" aria-selected="false" class="nav-link">
+                    BNB
+                </button>
+            </li>
+            <li role="presentation" class="nav-item">
+                <button id="try-id" data-bs-toggle="tab" data-bs-target="#try"
+                        type="button" role="tab" aria-controls="try" aria-selected="false" class="nav-link">
+                    TRY
+                </button>
+            </li>
+            <li role="presentation" class="nav-item">
+                <button id="usdt-id" data-bs-toggle="tab" data-bs-target="#usdt"
+                        type="button" role="tab" aria-controls="usdt" aria-selected="false" class="nav-link">
+                    USDT
+                </button>
+            </li>
+
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div id="tum" role="tabpanel" class="tab-pane fade show active">
+                <table class="table star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                if (item["lastPrice"].ToString() != "0.00000000")
+                                {
+
+                               
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="btc" role="tabpanel" aria-labelledby="btc-id" class="tab-pane fade">
+                <table class="table  star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                string sonKarakter = symbol.Substring(symbol.Length - 3);
+                                if (sonKarakter == "BTC" && item["lastPrice"].ToString() != "0.00000000")
+                                {
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol.Replace("BTC", "/BTC")</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="eth" role="tabpanel" aria-labelledby="eth-id" class="tab-pane fade">
+                <table class="table  star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                string sonKarakter = symbol.Substring(symbol.Length - 3);
+                                if (sonKarakter == "ETH" && item["lastPrice"].ToString() != "0.00000000")
+                                {
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol.Replace("ETH", "/ETH")</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="bnb" role="tabpanel" aria-labelledby="bnb-id" class="tab-pane fade">
+                <table class="table  star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                string sonKarakter = symbol.Substring(symbol.Length - 3);
+                                if (sonKarakter == "BNB" && item["lastPrice"].ToString() != "0.00000000")
+                                {
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol.Replace("BNB", "/BNB")</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="usdt" role="tabpanel" aria-labelledby="usdt-id" class="tab-pane fade">
+                <table class="table  star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                string sonKarakter = symbol.Substring(symbol.Length - 4);
+                                if (sonKarakter == "USDT" && item["lastPrice"].ToString() != "0.00000000")
+                                {
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol.Replace("USDT", "/USDT")</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+            <div id="try" role="tabpanel" aria-labelledby="try-id" class="tab-pane fade">
+                <table class="table  star-active">
+                    <thead>
+                        <tr>
+                            <th>İsim</th>
+                            <th>Son fiyat</th>
+                            <th>Değişim</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (DataRow item in datam.Tables[0].Rows)
+                            {
+                                string symbol = item["symbol"].ToString();
+
+                                string sonKarakter = symbol.Substring(symbol.Length - 3);
+                                if (sonKarakter == "TRY" && item["lastPrice"].ToString()!= "0.00000000")
+                                {
+                                    <tr class="coinname" onclick="location.href='/Coin?symbol=@symbol';">
+                                        <td class="coinname"><i class="icon ion-md-star"></i> @symbol.Replace("TRY", "/TRY")</td>
+                                        <td>@item["lastPrice"].ToString()</td>
+                                        <td class="green">+5.6%</td>
+                                    </tr>
+                                }
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+</div>

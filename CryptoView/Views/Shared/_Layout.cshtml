@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - DOĞU YAZILIM</title>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <link rel="stylesheet" href="~/Content/styles.css" media="all" onload="this.media='all'">
+    <script>
+        jQuery.expr[':'].contains = function (a, i, m) {
+            return jQuery(a).text().toUpperCase()
+                .indexOf(m[3].toUpperCase()) >= 0;
+        };
+
+        $(document).ready(function () {
+
+            // keyup ile inputa herhangi bir değer girilince fonksiyonu tetikliyoruz
+            $("#searchTags").keyup(function () {
+
+                // inputa yazılan değeri alıyoruz
+                var value = $("#searchTags").val();
+
+                // eğer input içinde değer yoksa yani boşsa tüm menüyü çıkartıyoruz
+                if (value.length == 0) {
+
+                    $("tbody .coinname").show();
+
+                    // arama yapılmışsa ilk olarak tüm menüyü gizliyoruz ve girilen değer ile eşleşen kısmı çıkarıyoruz
+                } else {
+
+                    $("tbody .coinname").hide();
+                    $("tbody .coinname:contains(" + value + ")").show();
+
+                }
+
+            });
+
+        });
+    </script>
+</head>
+<body class="dark-mode" cz-shortcut-listen="true">
+
+    @RenderBody()
+    <script src="~/Content/main.js"></script>
+    <script src="~/Content/runtime.js"></script>
+    <script src="~/Content/polyfills.js"></script>
+</body>
+</html>
